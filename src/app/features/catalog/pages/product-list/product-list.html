@@ -1,0 +1,15 @@
+<div style="background: yellow; padding: 30px;">
+
+  <h1>PRODUCT-LIST.HTML</h1>
+
+  <h2>Nombre : {{ products.length }}</h2>
+
+  @for (product of products; track product.id) {
+
+    <p>
+      {{ product.name }} - {{ product.price }} €
+    </p>
+
+  }
+
+</div>
