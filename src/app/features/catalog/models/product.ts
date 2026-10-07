@@ -4,7 +4,11 @@ export interface Product {
   description: string;
   price: number;
   stockQuantity: number;
-  imageUrl: string;
+  imageUrl: string | null;
+
   categoryId: string;
+  categoryName: string;
+
   brandId: string;
+  brandName: string;
 }

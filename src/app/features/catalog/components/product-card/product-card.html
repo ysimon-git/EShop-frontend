@@ -1,0 +1,50 @@
+<div class="card">
+  <div class="row g-0">
+
+    <div class="col-md-4">
+      @if (getImageUrl()) {
+        <img
+          [src]="getImageUrl()"
+          [alt]="product().name"
+          class="product-image">
+      }
+    </div>
+
+    <div class="col-md-8">
+      <div class="card-body">
+
+        <h5 class="card-title">
+          {{ product().name }}
+        </h5>
+
+        <p class="card-text">
+          {{ product().description }}
+        </p>
+
+        <div class="mb-3">
+          <span class="badge bg-primary me-2">
+            {{ product().categoryName }}
+          </span>
+
+          <span class="badge bg-secondary">
+            {{ product().brandName }}
+          </span>
+        </div>
+
+        <h5>{{ product().price }} €</h5>
+
+        @if (product().stockQuantity > 0) {
+          <span class="text-success">
+            En stock ({{ product().stockQuantity }})
+          </span>
+        } @else {
+          <span class="text-danger">
+            Rupture de stock
+          </span>
+        }
+
+      </div>
+    </div>
+
+  </div>
+</div>
