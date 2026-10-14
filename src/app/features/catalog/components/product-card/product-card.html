@@ -33,15 +33,26 @@
 
         <h5>{{ product().price }} €</h5>
 
-        @if (product().stockQuantity > 0) {
-          <span class="text-success">
-            En stock ({{ product().stockQuantity }})
-          </span>
-        } @else {
-          <span class="text-danger">
-            Rupture de stock
-          </span>
-        }
+        <div class="d-flex flex-column align-items-start mt-3">
+              @if (getAvailableStock() > 0) {
+                <span class="text-success">
+                  En stock ({{ getAvailableStock() }})
+                </span>
+              } @else {
+                <span class="text-danger">
+                  Rupture de stock
+                </span>
+              }
+
+              <button
+                type="button"
+                class="btn btn-primary mt-2"
+                [disabled]="getAvailableStock() <= 0"
+                (click)="addToBasket()">
+
+                Ajouter au panier
+              </button>
+        </div>
 
       </div>
     </div>

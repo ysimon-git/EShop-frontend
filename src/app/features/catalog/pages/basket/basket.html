@@ -1,0 +1,77 @@
+<h2>Mon panier</h2>
+
+@if (basketItems().length === 0) {
+
+  <p class="text-muted">Votre panier est vide.</p>
+
+} @else {
+
+  <table class="table table-striped align-middle">
+
+    <thead>
+      <tr>
+        <th>Produit</th>
+        <th>Prix unitaire</th>
+        <th>Quantité</th>
+        <th>Sous-total</th>
+        <th>Actions</th>
+      </tr>
+    </thead>
+
+    <tbody>
+      @for (item of basketItems(); track item.productId) {
+        <tr>
+          <td>{{ item.name }}</td>
+          <td>{{ item.price | currency:'EUR' }}</td>
+         <td>
+            <div class="d-flex align-items-center gap-2">
+
+               <button
+                  class="btn btn-outline-secondary btn-sm"
+                  (click)="decreaseQuantity(item.productId)">
+                  −
+                </button>
+
+                <span>{{ item.quantity }}</span>
+
+                <button
+                  class="btn btn-outline-secondary btn-sm"
+                  [disabled]="item.quantity >= item.stockQuantity"
+                  (click)="increaseQuantity(item.productId)">
+                  +
+                </button>
+
+            </div>
+          </td>
+          <td>
+            {{ item.price * item.quantity | currency:'EUR' }}
+          </td>
+          <td>
+            <button
+              class="btn btn-outline-danger btn-sm"
+              (click)="removeProduct(item.productId)">
+              Supprimer
+            </button>
+          </td>
+          
+        </tr>
+      }
+    </tbody>
+    <tfoot>
+        <tr>
+          <td colspan="3" class="text-end fw-bold">
+            Total :
+          </td>
+
+          <td class="fw-bold">
+            {{ totalAmount() | currency:'EUR' }}
+          </td>
+
+          <td></td>
+        </tr>
+    </tfoot>
+  </table>
+
+
+
+}
