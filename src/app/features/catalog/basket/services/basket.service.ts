@@ -1,6 +1,7 @@
-import { computed, Injectable, signal } from '@angular/core';
+import { computed, effect, Injectable, signal } from '@angular/core';
 import { BasketItem } from '../models/basket-item';
 import { Product } from '../../models/product';
+
 
 
 
@@ -9,8 +10,31 @@ import { Product } from '../../models/product';
 })
 export class BasketService {
 
-  private readonly _items = signal<BasketItem[]>([]);
+  //private readonly _items = signal<BasketItem[]>([]);
+  private readonly _items = signal<BasketItem[]>(this.loadBasket()); //to get basket from localStorage
   readonly items = this._items.asReadonly();
+
+
+  
+  constructor() {
+      effect(() => { //executed when signal items() change
+            localStorage.setItem(
+              'basket',
+              JSON.stringify(this.items())
+            );
+          });
+    
+  }
+
+
+  private loadBasket(): BasketItem[] {
+      const data = localStorage.getItem('basket');
+
+      if (data) {
+        return JSON.parse(data);
+      }
+      return [];
+  }
 
 
   readonly totalQuantity = computed(() => {
@@ -40,6 +64,7 @@ export class BasketService {
           } else {
             // Nouveau produit : créer une ligne dans le panier
             const newItem: BasketItem = {
+
               productId: product.id,
               name: product.name,
               price: product.price,
