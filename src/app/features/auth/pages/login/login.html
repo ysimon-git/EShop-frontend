@@ -1,0 +1,78 @@
+<div class="row justify-content-center mt-5">
+  <div class="col-md-5">
+    <div class="card shadow-sm">
+      <div class="card-body p-4">
+
+        <h3 class="mb-4">Connexion</h3>
+
+        @if (Message()) {
+          <div class="alert alert-danger">
+            {{ Message() }}
+          </div>
+        }
+
+        <form [formGroup]="loginForm" (ngSubmit)="onLogin()" autocomplete="off">
+
+          <div class="mb-3">
+            <label for="email" class="form-label">Email</label>
+
+            <input
+              id="email"
+              type="email"
+              class="form-control"
+              formControlName="email"
+              autocomplete="off">
+
+            @if (loginForm.controls.email.touched &&
+                 loginForm.controls.email.invalid) {
+              <div class="text-danger small mt-1">
+                Veuillez saisir une adresse email valide.
+              </div>
+            }
+          </div>
+
+          <div class="mb-3">
+            <label for="password" class="form-label">Mot de passe</label>
+
+            <input
+              id="password"
+              type="password"
+              class="form-control"
+              formControlName="password"
+              autocomplete="off">
+
+            @if (loginForm.controls.password.touched &&
+                 loginForm.controls.password.invalid) {
+              <div class="text-danger small mt-1">
+                Le mot de passe est obligatoire.
+              </div>
+            }
+          </div>
+
+          <button
+            type="submit"
+            class="btn btn-primary w-100"
+            [disabled]="isLoading()">
+
+            {{ isLoading() ? 'Connexion...' : 'Se connecter' }}
+
+          </button>
+
+        </form>
+
+        <hr class="my-4">
+
+            <p class="text-center text-muted mb-2">
+              Vous n'avez pas encore de compte ?
+            </p>
+
+            <a
+              routerLink="/register"
+              class="btn btn-outline-primary w-100">
+              Créer un compte
+            </a>
+
+      </div>
+    </div>
+  </div>
+</div>

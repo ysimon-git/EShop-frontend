@@ -1,5 +1,5 @@
 import { Component, inject, input } from '@angular/core';
-import { BasketService } from '../../basket/services/basket.service';
+import { BasketService } from '../../../basket/services/basket.service';
 import { Product } from '../../models/product';
 import { environment } from '../../../../../environments/environment';
 

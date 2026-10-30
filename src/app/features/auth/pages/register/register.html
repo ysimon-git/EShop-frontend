@@ -1,0 +1,102 @@
+<div class="row justify-content-center mt-5">
+  <div class="col-md-5">
+    <div class="card shadow-sm">
+      <div class="card-body p-4">
+
+        <h3 class="mb-4">Créer un compte</h3>
+
+        @if (Message()) {
+          <div class="alert alert-info">
+            {{ Message() }}
+          </div>
+        }
+
+        @if (!isRegistered()) {
+        <form [formGroup]="registerForm" (ngSubmit)="onRegister()" autocomplete="off">
+
+           <div class="mb-3">
+            <label for="firstname" class="form-label">Prénom</label>
+
+            <input
+              id="firstname"
+              class="form-control"
+              formControlName="firstname"
+              autocomplete="off">
+
+            @if (registerForm.controls.firstname.touched &&
+                 registerForm.controls.firstname.invalid) {
+              <div class="text-danger small mt-1">
+                Veuillez saisir un prénom (minimum 3 caractères).
+              </div>
+            }
+          </div>
+
+          <div class="mb-3">
+            <label for="name" class="form-label">Nom</label>
+
+            <input
+              id="name"
+              class="form-control"
+              formControlName="name"
+              autocomplete="off">
+
+            @if (registerForm.controls.name.touched &&
+                 registerForm.controls.name.invalid) {
+              <div class="text-danger small mt-1">
+                Veuillez saisir un nom (minimum 3 caractères).
+              </div>
+            }
+          </div>
+
+          <div class="mb-3">
+            <label for="email" class="form-label">Email</label>
+
+            <input
+              id="email"
+              type="email"
+              class="form-control"
+              formControlName="email"
+              autocomplete="off">
+
+            @if (registerForm.controls.email.touched &&
+                 registerForm.controls.email.invalid) {
+              <div class="text-danger small mt-1">
+                Veuillez saisir une adresse email valide.
+              </div>
+            }
+          </div>
+
+          <div class="mb-3">
+            <label for="password" class="form-label">Mot de passe</label>
+
+            <input
+              id="password"
+              type="password"
+              class="form-control"
+              formControlName="password"
+              autocomplete="off">
+
+            @if (registerForm.controls.password.touched &&
+                 registerForm.controls.password.invalid) {
+              <div class="text-danger small mt-1">
+                Le mot de passe est obligatoire (min 8 caractères et une minuscule/majuscule)
+              </div>
+            }
+          </div>
+
+          <button
+            type="submit"
+            class="btn btn-primary w-100"
+            [disabled]="isLoading()">
+
+            {{ isLoading() ? 'Connexion...' : 'Enregistrer' }}
+
+          </button>
+
+        </form>
+      }
+      
+      </div>
+    </div>
+  </div>
+</div>

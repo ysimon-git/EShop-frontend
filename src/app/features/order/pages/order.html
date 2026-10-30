@@ -1,0 +1,62 @@
+@if (orderNumber()) {
+
+    <div class="alert alert-success mt-4">
+        <h4>Commande confirmée !</h4>
+        <p>
+            Votre numéro de commande est :
+            <strong>{{ orderNumber() }}</strong>
+        </p>
+        <p>
+          Votre commande sera traitée dès réception du versement sur le compte IBAN: 1234.5678.91011
+        </p>
+    </div>
+
+} @else {
+
+          <div class="container mt-4">
+
+            <h2>Confirmation de commande</h2>
+
+            @if (basketItems().length === 0) {
+
+              <div class="alert alert-info mt-4">
+                Votre panier est vide.
+              </div>
+
+            } @else {
+
+              <div class="mt-4">
+                <label for="orderNote" class="form-label fw-bold">
+                  Note pour la commande
+                </label>
+
+                <textarea
+                  id="orderNote"
+                  class="form-control"
+                  rows="4"
+                  placeholder="Instructions particulières pour votre commande..."
+                  [value]="note()"
+                  (input)="note.set($any($event.target).value)">
+                </textarea>
+              </div>
+
+              <div class="d-flex justify-content-between mt-4">
+
+                <a href="/basket" class="btn btn-outline-secondary">
+                  Retour au panier
+                </a>
+
+                <button
+                  type="button"
+                  class="btn btn-primary"
+                  (click)="confirmOrder()">
+                  Confirmer la commande
+                </button>
+
+              </div>
+
+            }
+
+          </div>
+        }
+      

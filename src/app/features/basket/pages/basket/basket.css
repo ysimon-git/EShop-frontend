@@ -3,3 +3,6 @@
   height: 50px;
   object-fit: contain;
 }
+.basket-action-btn {
+  width: 110px;
+}

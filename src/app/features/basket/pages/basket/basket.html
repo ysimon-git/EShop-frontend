@@ -50,7 +50,7 @@
           </td>
           <td>
             <button
-              class="btn btn-outline-danger btn-sm"
+              class="btn btn-outline-danger btn-sm basket-action-btn"
               (click)="removeProduct(item.productId)">
               Supprimer
             </button>
@@ -66,11 +66,22 @@
           </td>
 
           <td class="fw-bold">
-            {{ totalAmount() | currency:'EUR' }}
+            {{ this.getTotalAmount() | currency:'EUR' }}
           </td>
 
-          <td></td>
+          <td>
+            <button
+                  class="btn btn-primary btn-sm basket-action-btn"
+                  (click)="SubmitOrder()">
+                  Commander
+            </button>
+          </td>
         </tr>
+        <tr>
+          <td colspan="3"></td>
+          <td colspan="3" style="text-align: right;">{{this.info()}}</td>
+        </tr>
+
     </tfoot>
   </table>
 

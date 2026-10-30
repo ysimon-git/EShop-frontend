@@ -1,7 +1,9 @@
-import { Component, inject, computed } from '@angular/core';
+import { Component, inject, computed, signal } from '@angular/core';
 import { CurrencyPipe } from '@angular/common';
-import { BasketService } from '../../basket/services/basket.service';
+import { BasketService } from '../../services/basket.service';
 import { environment } from '../../../../../environments/environment';
+import { Router } from '@angular/router';
+import { AuthService } from '../../../auth/services/auth.service';
 
 @Component({
   selector: 'app-basket',
@@ -12,10 +14,16 @@ import { environment } from '../../../../../environments/environment';
 export class Basket {
 
  
+  private readonly router = inject(Router);
   private readonly basketService = inject(BasketService);
-  readonly basketItems = this.basketService.items;
+  private readonly authservice=inject(AuthService);
+  private isAuthenticated:boolean=false;
 
-  readonly totalAmount = computed(() => {
+
+  readonly basketItems = this.basketService.items;
+  private info=signal<string>('');
+
+ /*  readonly totalAmount = computed(() => {
     let total = 0;
 
     for (const item of this.basketItems()) {
@@ -23,7 +31,11 @@ export class Basket {
     }
 
     return total;
-  });
+  }); */
+
+  getTotalAmount():number{
+    return this.basketService.totalAmount();
+  }
 
   
   increaseQuantity(productId: string): void {
@@ -52,7 +64,27 @@ export class Basket {
       }
 
       return `${environment.apiUrls.catalogImages}${imageUrl}`;
-}
+  }
+
+
+  SubmitOrder():void{
+
+
+      if(this.authservice.isAuthenticated())
+      {
+          this.isAuthenticated=true;        
+          this.router.navigate(['order']);
+      }else{
+        this.info.set("Vous devez vous connecter pour passer commande.");
+      }
+
+    
+  
+  }
+
+
+
+
 
   
 

@@ -34,6 +34,8 @@ export class ProductList implements OnInit {
   
  ngOnInit(): void {
 
+    localStorage.clear(); //clean basket
+
     this.productService.getProducts().subscribe(products => {
       this.products.set(products);
     });

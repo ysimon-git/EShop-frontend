@@ -1,6 +1,6 @@
 import { computed, effect, Injectable, signal } from '@angular/core';
 import { BasketItem } from '../models/basket-item';
-import { Product } from '../../models/product';
+import { Product } from '../../catalog/models/product';
 
 
 
@@ -27,7 +27,13 @@ export class BasketService {
   }
 
 
-  private loadBasket(): BasketItem[] {
+  emptyBasket():void{
+    
+    this._items.set([]);
+  }
+
+
+  loadBasket(): BasketItem[] {
       const data = localStorage.getItem('basket');
 
       if (data) {
@@ -35,6 +41,17 @@ export class BasketService {
       }
       return [];
   }
+
+  readonly totalAmount = computed(() => {
+    let total = 0;
+
+    for (const item of this.items()) {
+      total += item.price * item.quantity;
+    }
+
+    return total;
+  });
+
 
 
   readonly totalQuantity = computed(() => {
