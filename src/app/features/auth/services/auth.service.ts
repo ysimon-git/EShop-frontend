@@ -37,7 +37,7 @@ export class AuthService {
   private readonly apiUrlregister =`${environment.apiUrls.auth}/register`;
 
   //jwt saved in memory with signals
-  private readonly _token=signal<string | null>(null);
+  readonly _token=signal<string | null>(null);
   private readonly _registerresponse=signal<string | null>(null);
 
   
@@ -80,9 +80,46 @@ export class AuthService {
 
 
 
+  getCustomerId(): string | null {
 
+          const token = this._token();
 
+          if (!token) {
+            return null;
+          }
 
+          try {
+            // 1. Extract JWT payload: HEADER.PAYLOAD.SIGNATURE
+            const encodedPayload = token.split('.')[1];    
 
+            // 2. Convert Base64URL to Base64
+            const base64 = encodedPayload
+              .replace(/-/g, '+')
+              .replace(/_/g, '/');
 
+            // 3. Decode the payload
+            const json = atob(base64);
+
+            // 4. Convert JSON string to JavaScript object
+            const payload = JSON.parse(json);
+
+            // 5. Retrieve the user identifier
+            return payload.nameid
+              ?? payload['http://schemas.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier']
+              ?? payload.sub
+              ?? null;
+
+          } catch {
+            return null;
+          }
+    }
+ 
 }
+
+
+
+
+
+
+
+

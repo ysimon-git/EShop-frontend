@@ -1,0 +1,6 @@
+.order-product-image {
+  width: 55px;
+  height: 55px;
+  object-fit: contain;
+  border-radius: 6px;
+}

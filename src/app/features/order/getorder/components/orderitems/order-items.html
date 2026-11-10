@@ -1,0 +1,20 @@
+
+<td>
+    <div class="d-flex align-items-center gap-3">
+
+        @if (orderItem().imageUrl; as imageUrl) {
+            <img
+                [src]="getImageUrl(imageUrl)"
+                [alt]="orderItem().productName"
+                class="order-product-image">
+        }
+
+        <span>{{ orderItem().productName }}</span>
+
+    </div>
+</td>
+
+<td>{{ orderItem().quantity }}</td>
+<td>{{ orderItem().unitPrice | currency:'EUR' }}</td>
+<td>{{ orderItem().totalPrice | currency:'EUR' }}</td>
+

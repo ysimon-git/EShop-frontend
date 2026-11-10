@@ -1,0 +1,39 @@
+.order-product-image {
+  width: 55px;
+  height: 55px;
+  object-fit: contain;
+  border-radius: 6px;
+}
+.row[role="button"] {
+    cursor: pointer;
+    border-radius: 6px;
+    transition: background-color 0.2s;
+}
+
+.row[role="button"]:hover {
+    background-color: rgba(120, 194, 173, 0.10);
+}
+
+.details-link {
+    color: #3a8f7c;
+    font-size: 0.85rem;
+    font-weight: 500;
+}
+.orders-container {
+    width: 90%;
+    margin: 0 auto;
+}
+
+.card {
+    border-radius: 8px;
+}
+
+.card-body {
+    padding: 14px 18px;
+}
+
+@media (max-width: 768px) {
+    .orders-container {
+        width: 100%;
+    }
+}

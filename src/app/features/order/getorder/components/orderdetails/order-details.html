@@ -1,0 +1,33 @@
+
+<h5>Détail de la commande</h5>
+
+@if (order().note) {
+    <p>Note : {{ order().note }}</p>
+}
+
+<table class="table table-striped align-middle">
+
+    <colgroup>
+        <col style="width: 45%">
+        <col style="width: 15%">
+        <col style="width: 20%">
+        <col style="width: 20%">
+    </colgroup>
+
+    <thead>
+        <tr>
+            <th>Produit</th>
+            <th class="text-center">Quantité</th>
+            <th class="text-end">Prix unitaire</th>
+            <th class="text-end">Total</th>
+        </tr>
+    </thead>
+
+    <tbody>
+        @for (orderItem of order().items; track orderItem.productId) {
+            <!-- component for order items -->
+            <tr app-order-items [orderItem]="orderItem"></tr>
+        }
+    </tbody>
+
+</table>

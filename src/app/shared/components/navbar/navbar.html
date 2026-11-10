@@ -1,3 +1,4 @@
+
 <nav class="navbar navbar-expand-lg bg-primary"
      data-bs-theme="dark">
 
@@ -14,42 +15,42 @@
       </a>
 
       <a class="nav-link" routerLink="/basket">
-       Mon panier
-      <span class="badge bg-light text-dark">
-        🛒{{ basketService.totalQuantity() }}
-      </span>
+        Mon panier
+        <span class="badge bg-light text-dark">
+          🛒 {{ basketService.totalQuantity() }}
+        </span>
       </a>
 
-      <a class="nav-link" routerLink="/login">
-       @if (authService.isAuthenticated()) {
+      @if (authService.isAuthenticated()) {
 
-           <!--  <span class="navbar-text">
-              <i class="bi bi-person-check me-1"></i>
-              Connecté(e)
-            </span> -->
+        <a class="nav-link" routerLink="/orderslist">
+          Mes commandes
+        </a>
 
-            <button
-              type="button"
-              class="btn btn-outline-light btn-sm"
-              (click)="authService.logout()">
+        <button
+          type="button"
+          class="btn btn-outline-light btn-sm"
+          (click)="authService.logout()">
 
-              <i class="bi bi-box-arrow-right me-1"></i>
-              Déconnexion
+          <i class="bi bi-box-arrow-right me-1"></i>
+          Déconnexion
 
-            </button>
+        </button>
 
       } @else {
 
-            <a class="btn btn-outline-light btn-sm"
-              routerLink="/login">
-              <i class="bi bi-box-arrow-in-right me-1"></i>
-              Connexion
-            </a>
+        <a class="btn btn-outline-light btn-sm"
+           routerLink="/login">
+
+          <i class="bi bi-box-arrow-in-right me-1"></i>
+          Connexion
+
+        </a>
 
       }
-      </a>
 
     </div>
 
   </div>
+
 </nav>

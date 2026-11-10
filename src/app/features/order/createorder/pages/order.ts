@@ -1,8 +1,8 @@
 import { Component, inject, signal } from "@angular/core";
-import { BasketService } from "../../basket/services/basket.service";
+import { BasketService } from "../../../basket/services/basket.service";
 import { order } from "../models/order";
 import { order_item } from "../models/order_item";
-import { OrderService } from "../services/order.service";
+import { OrderService } from "../../services/order.service";
 
 @Component({
   selector: 'app-basket',

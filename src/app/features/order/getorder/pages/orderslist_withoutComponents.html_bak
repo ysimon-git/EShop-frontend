@@ -1,0 +1,121 @@
+
+<div class="container mt-4">
+
+  <h2 class="mb-4">Mes commandes</h2>
+
+  @if (loading()) {
+
+    <p>Chargement des commandes...</p>
+
+  } @else if (error()) {
+
+    <div class="alert alert-danger">
+      {{ error() }}
+    </div>
+
+  } @else if (orders().length === 0) {
+
+    <div class="alert alert-info">
+      Vous n'avez pas encore passé de commande.
+    </div>
+
+  } @else {
+
+    cliquez pour le détail
+@for (order of orders(); track order.id) {
+            
+            <div class="card mb-3">
+
+                <div class="card-body">
+
+                <div class="row align-items-center"
+                    role="button"
+                    tabindex="0"
+                    (click)="selectOrder(order.id)"
+                    (keydown.enter)="selectOrder(order.id)">
+
+                    
+                    <div class="col-md-3">
+                    <strong>{{ order.orderNumber }}</strong>
+                    </div>
+
+                    <div class="col-md-3">
+                    {{ order.createdAtUtc | date:'dd/MM/yyyy' }}
+                    </div>
+
+                    <div class="col-md-3">
+                    {{ order.status }}
+                    </div>
+
+                    <div class="col-md-3 text-end">
+                    {{ order.totalAmount | currency:'EUR' }}
+                    </div>
+
+                </div>
+
+                @if (selectedOrderId() === order.id) {
+
+                    <hr>
+
+                    @if (loadingDetails()) {
+
+                    <p>Chargement du détail...</p>
+
+                    } @else if (selectedOrder(); as details) {
+
+                    <h5>Détail de la commande</h5>
+
+                    @if (details.note) {
+                        <p>Note : {{ details.note }}</p>
+                    }
+
+                    <table class="table table-striped">
+
+                        <thead>
+                        <tr>
+                            <th>Produit</th>
+                            <th>Quantité</th>
+                            <th>Prix unitaire</th>
+                            <th>Total</th>
+                        </tr>
+                        </thead>
+
+                        <tbody>
+                        @for (item of details.items; track item.productId) {
+                            <tr>
+                            <td>
+                            <div class="d-flex align-items-center gap-3">
+
+                                @if (item.imageUrl) {
+                                <img
+                                    [src]="getImageUrl(item.imageUrl)"
+                                    [alt]="item.productName"
+                                    class="order-product-image">
+                                }
+
+                                <span>{{ item.productName }}</span>
+
+                            </div>
+                            </td>
+                            <td>{{ item.quantity }}</td>
+                            <td>{{ item.unitPrice | currency:'EUR' }}</td>
+                            <td>{{ item.totalPrice | currency:'EUR' }}</td>
+                            </tr>
+                        }
+                        </tbody>
+
+                    </table>
+
+                    }
+
+                }
+            </div>
+
+  </div>
+
+}
+
+
+  }
+
+</div>

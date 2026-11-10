@@ -1,0 +1,102 @@
+
+<div class="container mt-4">
+
+  <div class="orders-container">
+
+ 
+  <h2 class="mb-4">Mes commandes</h2>
+
+  @if (loading()) {
+
+    <p>Chargement des commandes...</p>
+
+  } @else if (error()) {
+
+    <div class="alert alert-danger">
+      {{ error() }}
+    </div>
+
+  } @else if (orders().length === 0) {
+
+    <div class="alert alert-info">
+      Vous n'avez pas encore passé de commande.
+    </div>
+
+  } @else {
+
+  
+@for (order of orders(); track order.id) {
+       
+            <div class="card mb-3">
+
+                <div class="card-body">
+
+                  
+                        
+                    <div class="row align-items-center"
+                        role="button"
+                        tabindex="0"
+                        (click)="selectOrder(order.id)"
+                        (keydown.enter)="selectOrder(order.id)">
+
+                        <div class="col-md-2 text-start">
+                            <span class="details-link">
+                                @if (selectedOrderId() === order.id) {
+                                    Masquer ▴
+                                } @else {
+                                    Voir Détails ▾
+                                }
+                            </span>
+                        </div>
+
+                        <div class="col-md-3 text-start">
+                            Numéro :
+                            <strong>{{ order.orderNumber }}</strong>
+                        </div>
+
+                        <div class="col-md-2 text-start">
+                            Date :
+                            {{ order.createdAtUtc | date:'dd/MM/yyyy' }}
+                        </div>
+
+                        <div class="col-md-2 text-start">
+                            Statut :
+                            {{ order.status }}
+                        </div>
+
+                        <div class="col-md-3 text-end">
+                            Total :
+                            <strong>{{ order.totalAmount | currency:'EUR' }}</strong>
+                        </div>
+
+                    </div>
+
+
+
+                
+                @if (selectedOrderId() === order.id) {
+
+                <hr>
+
+                      @if (loadingDetails()) {
+
+                          <p>Chargement du détail...</p>
+
+                      } @else if (selectedOrder(); as details) {
+                          <!-- Component for order-details  -->
+                          <app-order-details [order]="details" />
+
+                      }
+
+            }
+            </div>
+
+  </div>
+
+}
+
+
+  }
+
+  </div>
+</div>
